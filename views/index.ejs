@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	
+</head>
+<body>
+
+<!-- <ul>
+	<% data.forEach(item => { %>
+		<li><%= item.firstname %></li>
+	  <% }); %>
+</ul> -->
+<form action="/submit" method="post">
+	<h1>Data from database</h1>
+	<select id="selectInput" name="selectInput">
+		<% data.forEach(item => { %>
+			<option value="<%= item.uniqueid %>"><%= item.polling_unit_name  %></option>
+		<%}); %>	
+	</select>
+	<button type="submit">submit</button> 
+</form>
+<% if (query && query.length > 0) { %>
+<table>
+	<thead>
+		<tr>
+			<th>Party</th>
+			<th>Result</th>
+		</tr>
+	</thead>
+	<tbody>
+			<% query.forEach(item => { %>
+			<tr>
+				<td><%= item.party_abbreviation %></td>
+				<td><%= item.party_score %></td>
+			</tr>
+			<% }); %>
+	</tbody>
+</table>
+<% } else if (query) { %>
+    <p>No results found for the selected option.</p>
+<% } %>
+</body>
+<script></script>
+</html>

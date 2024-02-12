@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<form action="/poll" method="post">
+		<h1>Data from database</h1>
+		<select id="selectInput" name="selectInput">
+			<% data.forEach(item => { %>
+				<option value="<%= item.lga_id %>"><%=item.lga_name%></option>
+			<%}); %>	
+		</select>
+		<button type="submit">submit</button> 
+	</form>
+	<% if (queryResult && queryResult.length > 0) { %>
+	<div>
+		<% queryResult.forEach(item => { %>
+			<p>The total Polling Unit is =  <%= item.record_count %></p>
+			<% }); %>
+	</div>
+	<% } else if (queryResult) { %>
+		<p>No results found for the selected option.</p>
+	<% } %>
+</body>
+</html>
