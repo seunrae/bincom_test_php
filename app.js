@@ -4,6 +4,7 @@ const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 
+
 //connect to database
 const pool = createPool({
   host: "localhost",
@@ -13,17 +14,21 @@ const pool = createPool({
   connectionLimit: 10,
 });
 
+
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
+
 
 // app.listen(3000, () => {
 //   console.log("listening on port 3000");
 // });
 
-// app.get('/', (req, res) => {
-// 	res.render('index', { selectedOption: null });
-//   });
+app.get('/', (req, res) => {
+	res.render('index', { selectedOption: null });
+  });
 
 app.get("/", (req, res) => {
   const sqlStatement = `Select uniqueid, polling_unit_name from polling_unit`;
@@ -31,7 +36,7 @@ app.get("/", (req, res) => {
     if (err) return console.log(err);
     const data = result;
     console.log(data);
-    res.render("index", { data, selectedOption: null, query: null });
+    res.render("index", {data, selectedOption: null, query: null });
   });
 });
 
