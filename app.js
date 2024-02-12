@@ -81,6 +81,30 @@ app.post("/poll", (req, res)=>{
 	})
 })
 
+app.get("/create", (req, res)=>{
+  const uniqueid = req.body.uniqueid;
+  const polling_unit_id = req.body.polling_unit_id;
+  const ward_id = req.body.ward_id;
+  const lga_id = req.body.lga_id;
+  const uniquewardid = req.body.uniquewardid;
+  const polling_unit_number = req.body.polling_unit_number;
+  const polling_unit_description = req.body.polling_unit_description;
+  const lat = req.body.lat;
+  const long =  req.body.long;
+  const entered_by_user = req.body.entered_by_user;
+  const date_entered =  req.body.entered_by_user;
+  const user_ip_address = req.body.user_ip_address;
+
+
+  const sql = `INSERT INTO polling_unit (uniqueid, polling_unit_id, ward_id, lga_id, uniquewardid, polling_unit_number, polling_unit_name, polling_unit_description, lat, long, entered_by_user, date_entered, user_ip_address) VALUES
+  ((?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?))`
+  pool.query(sql,[uniqueid, polling_unit_id, ward_id, lga_id, uniquewardid, polling_unit_number, polling_unit_description, lat, long, entered_by_user, date_entered, user_ip_address],
+    (err, result)=>{
+      if(err) return console.log(err);
+      console.log(result);
+    })
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
